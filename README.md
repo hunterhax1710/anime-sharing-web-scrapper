@@ -1,4 +1,4 @@
-# Anime-Sharing Web Scraper
+# Anime-Sharing Web Scraper 1.00
 
 Are you too lazy to always search if there is a new post for John-Doe-Movie?<br>
 Too lazy to always check if someone finally uploaded the actual John-Doe-Movie on Anime-sharing Website?<br> 
