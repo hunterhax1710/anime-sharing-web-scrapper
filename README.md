@@ -1,8 +1,9 @@
 # Anime-Sharing Web Scraper
 
-Are you too lazy to always search if there is a new post for John-Doe-Movie? 
-Too lazy to always check if someone finally uploaded the actual John-Doe-Movie on Anime-sharing Website? 
-Or even better, you want to search for not ONLY John-Doe-Movie, but PeterPan-Sword-Movie and Lazy-Adam-Movie but you are too lazy to search one-by-one. Yea me too.
+Are you too lazy to always search if there is a new post for John-Doe-Movie?<br>
+Too lazy to always check if someone finally uploaded the actual John-Doe-Movie on Anime-sharing Website?<br> 
+Or even better, you want to search for not ONLY John-Doe-Movie, but PeterPan-Sword-Movie and Lazy-Adam-Movie but you are too lazy to search one-by-one.<br>
+Yea me too.<br>
 
 This is a simple desktop application for scraping search results from Anime-Sharing. The application lets you manage multiple search URLs, organize them into groups, and view newly scraped posts in a single interface. (Made for Lazy people)
 
