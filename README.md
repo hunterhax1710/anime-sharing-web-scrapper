@@ -79,7 +79,7 @@ Example:
 {
     "1": {
         "group": "Website Alias Here",
-        "url": "https://www.anime-sharing.com/search/103867405/?q=JOY+OF+PROGRAMMING+Software+Engineering+Simulator-TENOKE&o=relevance"
+        "url": "https://www.anime-sharing.com/search/103867405/?q=JOY+OF+PROGRAMMING+Software+Engineering+Simulator-TENOKE&o=relevance"   
     }
 }
 ```
