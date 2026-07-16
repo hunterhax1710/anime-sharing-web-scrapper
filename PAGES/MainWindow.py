@@ -1,5 +1,5 @@
 from PySide6.QtWidgets import (QMainWindow, QWidget, QLabel, QVBoxLayout, 
-                             QHBoxLayout, QFrame, QMessageBox)
+                             QHBoxLayout, QFrame, QMessageBox, QStackedWidget)
 from PySide6.QtCore import Qt, QThread, Signal
 from PySide6.QtGui import QFont, QCursor, QIcon
 from UI.MainUI import Ui_MainWindow
@@ -262,20 +262,79 @@ class MainUI(QMainWindow, Ui_MainWindow):
         self.label.hide()
         self.label_3.hide()
         
-        # Adjust scrollArea dimensions to fit the static headers above them
-        self.scrollArea.setGeometry(20, 45, 721, 410)
-        self.scrollArea_3.setGeometry(20, 45, 721, 410)
+
+        # Dynamic Resizing function
+        # Main Layout on Central Widget (combine Sidebar and Main Content pages)
+        self.main_layout = QHBoxLayout(self.centralwidget)
+        self.main_layout.setContentsMargins(0, 0, 0, 0)
+        self.main_layout.setSpacing(0)
         
-        # Create Static Headers
+        # Configure Sidebar
+        self.sidebar.setFixedWidth(190)
+        sidebar_layout = QVBoxLayout(self.sidebar)
+        sidebar_layout.setContentsMargins(20, 30, 20, 30)
+        sidebar_layout.setSpacing(20)
+        self.POSTS.setFixedHeight(51)
+        self.SITES.setFixedHeight(51)
+        sidebar_layout.addWidget(self.POSTS)
+        sidebar_layout.addWidget(self.SITES)
+        sidebar_layout.addStretch()
+        
+
+        # QStackedWidget to manage the right-side pages
+        self.stacked_widget = QStackedWidget(self.centralwidget)
+        self.stacked_widget.addWidget(self.POSTS_PAGE)
+        self.stacked_widget.addWidget(self.SITES_PAGE)
+        
+        # Add components to the main layout
+        self.main_layout.addWidget(self.sidebar)
+        self.main_layout.addWidget(self.stacked_widget)
+        
+
+        # Layout for POSTS_PAGE
+        posts_page_layout = QVBoxLayout(self.POSTS_PAGE)
+        posts_page_layout.setContentsMargins(20, 20, 20, 20)
+        posts_page_layout.setSpacing(10)
+        
+        # Create and add posts header
         self.posts_header = HeaderRowWidget("Website", "Title", self.POSTS_PAGE)
-        self.posts_header.setGeometry(20, 10, 721, 35)
-        self.posts_header.show()
+        self.posts_header.setFixedHeight(35)
+        posts_page_layout.addWidget(self.posts_header)
         
+        # Add scrollArea to layout (resize dynamically)
+        posts_page_layout.addWidget(self.scrollArea)
+        
+        # Bottom row with refreshButton
+        bottom_posts_layout = QHBoxLayout()
+        bottom_posts_layout.addStretch()
+        self.refreshButton.setFixedSize(151, 51)
+        bottom_posts_layout.addWidget(self.refreshButton)
+        posts_page_layout.addLayout(bottom_posts_layout)
+        
+
+        # Layout for SITES_PAGE
+        sites_page_layout = QVBoxLayout(self.SITES_PAGE)
+        sites_page_layout.setContentsMargins(20, 20, 20, 20)
+        sites_page_layout.setSpacing(10)
+        
+        # Create and add sites header
         self.sites_header = HeaderRowWidget("Group", "URLS", self.SITES_PAGE)
-        self.sites_header.setGeometry(20, 10, 721, 35)
-        self.sites_header.show()
+        self.sites_header.setFixedHeight(35)
+        sites_page_layout.addWidget(self.sites_header)
         
-        # Initialize Layouts for Scroll Areas
+        # Add scrollArea_3 to layout (resize dynamically)
+        sites_page_layout.addWidget(self.scrollArea_3)
+        
+        # Bottom row with buttons (addButton left, removeButton right)
+        bottom_sites_layout = QHBoxLayout()
+        self.addButton.setFixedSize(151, 51)
+        bottom_sites_layout.addWidget(self.addButton)
+        bottom_sites_layout.addStretch()
+        self.removeButton.setFixedSize(151, 51)
+        bottom_sites_layout.addWidget(self.removeButton)
+        sites_page_layout.addLayout(bottom_sites_layout)
+        
+        # Initialize Layouts for Scroll Areas contents
         self.posts_layout = QVBoxLayout(self.scrollAreaWidgetContents)
         self.posts_layout.setContentsMargins(0, 0, 0, 0)
         self.posts_layout.setSpacing(0)
@@ -285,6 +344,23 @@ class MainUI(QMainWindow, Ui_MainWindow):
         self.sites_layout.setContentsMargins(5, 5, 5, 5)
         self.sites_layout.setSpacing(10)
         self.sites_layout.setAlignment(Qt.AlignmentFlag.AlignTop)
+        
+        # Disconnect auto-generated signals from setupUi to avoid show/hide conflicts
+        try:
+            self.POSTS.clicked.disconnect()
+        except RuntimeError:
+            pass
+        try:
+            self.SITES.clicked.disconnect()
+        except RuntimeError:
+            pass
+        
+        # Connect buttons to stacked widget page switches
+        self.POSTS.clicked.connect(lambda: self.stacked_widget.setCurrentWidget(self.POSTS_PAGE))
+        self.SITES.clicked.connect(lambda: self.stacked_widget.setCurrentWidget(self.SITES_PAGE))
+        
+        # Default to showing POSTS_PAGE
+        self.stacked_widget.setCurrentWidget(self.POSTS_PAGE)
         
         # Connect Buttons
         self.addButton.clicked.connect(self.open_add_window)
