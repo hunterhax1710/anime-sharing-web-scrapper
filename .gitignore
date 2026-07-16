@@ -1,0 +1,4 @@
+# Ignore a specific folder
+__pycache__/
+PAGES/__pycache__/
+UI/__pycache__/
