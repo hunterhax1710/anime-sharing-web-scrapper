@@ -9,7 +9,7 @@ class AddWindow(QDialog, Ui_AddWindow):
         self.setWindowTitle("Add Website")
         self.on_success = on_success
         
-        # Fix text color issue where white text makes typing invisible
+        # Text Colour
         self.GroupTextEdit.setStyleSheet("background-color: white; color: black;")
         self.URLTextEdit.setStyleSheet("background-color: white; color: black;")
         

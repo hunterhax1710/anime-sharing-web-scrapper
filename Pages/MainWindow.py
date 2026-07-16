@@ -1,12 +1,13 @@
 from PySide6.QtWidgets import (QMainWindow, QWidget, QLabel, QVBoxLayout, 
                              QHBoxLayout, QFrame, QMessageBox)
 from PySide6.QtCore import Qt, QThread, Signal
-from PySide6.QtGui import QFont, QCursor
+from PySide6.QtGui import QFont, QCursor, QIcon
 from UI.MainUI import Ui_MainWindow
-from Pages.AddWindow import AddWindow
+from PAGES.AddWindow import AddWindow
 from collections import defaultdict
 import config
 import scrapper
+import os
 
 def clear_layout(layout):
     if layout is not None:
@@ -248,6 +249,11 @@ class MainUI(QMainWindow, Ui_MainWindow):
         self.setupUi(self)
         self.setWindowTitle("News Scrapper")
         
+        # Set Window Icon
+        icon_path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "AppIcon.png")
+        if os.path.exists(icon_path):
+            self.setWindowIcon(QIcon(icon_path))
+            
         # State
         self.selected_site_id = None
         self.all_url_widgets = []
