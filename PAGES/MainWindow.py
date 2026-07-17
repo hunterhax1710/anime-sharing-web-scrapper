@@ -247,7 +247,7 @@ class MainUI(QMainWindow, Ui_MainWindow):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
-        self.setWindowTitle("News Scrapper")
+        self.setWindowTitle("Scrapy")
         
         # Set Window Icon
         icon_path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "AppIcon.png")
