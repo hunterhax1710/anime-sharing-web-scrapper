@@ -498,3 +498,4 @@ class MainUI(QMainWindow, Ui_MainWindow):
         
         QMessageBox.warning(self, "Scraping Failure", f"An error occurred while loading pages:\n{err_msg}")
         self.show_initial_posts_msg()
+        print("test")
