@@ -100,6 +100,6 @@ This project is intended for personal use. The scraper depends on the current HT
 
 # License
 
-Made by Lazy People for Lazy People
+Made by Lazy People
 
 
